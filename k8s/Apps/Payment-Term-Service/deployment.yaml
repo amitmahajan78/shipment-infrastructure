@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-term-deployment
+  namespace: payment-term
+spec:
+  selector:
+    matchLabels:
+      app: payment-term
+  template:
+    metadata:
+      labels:
+        app: payment-term
+    spec:
+      containers:
+      - name: payment-term-service
+        image: amitmahajan/payment-term-service:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        envFrom:
+        - configMapRef:
+            name: payment-term-configmap
+        env: 
+          - name: SASL_USERNAME
+            valueFrom: 
+              secretKeyRef: 
+                name: payment-term-secret 
+                key: kafka_username
+          - name: SASL_PASSWORD
+            valueFrom: 
+              secretKeyRef: 
+                name: payment-term-secret 
+                key: kafka_password
