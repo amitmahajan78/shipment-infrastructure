@@ -27,9 +27,9 @@ spec:
             valueFrom: 
               secretKeyRef: 
                 name: payment-term-secret 
-                key: kafka_username
+                key: KAFKA_USERNAME
           - name: SASL_PASSWORD
             valueFrom: 
               secretKeyRef: 
                 name: payment-term-secret 
-                key: kafka_password
+                key: KAFKA_PASSWORD
